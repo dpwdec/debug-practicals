@@ -1,6 +1,6 @@
 def encode(plaintext, key)
   cipher = key.chars.uniq + (('a'..'z').to_a - key.chars)
-  p cipher.sort
+  # p cipher.sort
   ciphertext_chars = plaintext.chars.map do |char|
     (65 + cipher.find_index(char)).chr
   end
@@ -8,17 +8,18 @@ def encode(plaintext, key)
 end
 
 def decode(ciphertext, key)
-  cipher = key.chars.uniq + (('a'...'z').to_a - key.chars)
+  cipher = key.chars.uniq + (('a'..'z').to_a - key.chars)
+  # p cipher.sort
   plaintext_chars = ciphertext.chars.map do |char|
-    cipher[65 - char.ord]
+    cipher[char.ord - 65]
   end
   plaintext_chars.join
 end
 
 # Intended output:
 #
-print encode("theswiftfoxjumpedoverthelazydog", "secretkey")
+encode("theswiftfoxjumpedoverthelazydog", "secretkey")
 # => "EMBAXNKEKSYOVQTBJSWBDEMBPHZGJSL"
 #
-# > decode("EMBAXNKEKSYOVQTBJSWBDEMBPHZGJSL", "secretkey")
+decode("EMBAXNKEKSYOVQTBJSWBDEMBPHZGJSL", "secretkey")
 # => "theswiftfoxjumpedoverthelazydog"
